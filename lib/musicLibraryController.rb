@@ -41,7 +41,6 @@ class MusicLibraryController
   end
 
   def list_songs
-    binding.pry
     @sorted_songs.each_with_index do | song, count |
       puts "#{count}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
     end
