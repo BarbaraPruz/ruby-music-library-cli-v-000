@@ -42,7 +42,7 @@ class MusicLibraryController
 
   def list_songs
     binding.pry
-    @sorted_songs.each_with_index do | count, song |
+    @sorted_songs.each_with_index do | song, count |
       puts "#{count}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
     end
   end
@@ -62,7 +62,7 @@ class MusicLibraryController
     list = Song.all.select { | song | song.artist.name == artist_name }
     list.sort!{ | a, b | a.name <=> b.name }
 
-    list.each_with_index { | count, song | puts "#{count}. #{song.name} - #{song.genre.name}"}
+    list.each_with_index { | song, count | puts "#{count}. #{song.name} - #{song.genre.name}"}
   end
 
   def list_songs_by_genre
@@ -72,7 +72,7 @@ class MusicLibraryController
     list = Song.all.select { | song | song.genre.name == genre_name }
     list.sort!{ | a, b | a.name <=> b.name }
 
-    list.each_with_index { | count, song | puts "#{count}. #{song.artist.name} - #{song.name}"}
+    list.each_with_index { | song, count | puts "#{count}. #{song.artist.name} - #{song.name}"}
   end
 
   def play_song
@@ -88,7 +88,7 @@ class MusicLibraryController
 
   def list_by_name (all)
     list = all.collect { |item| item.name }
-    list.each_with_index {|count, name| puts "#{count}. #{name}"}
+    list.each_with_index {|name, count| puts "#{count}. #{name}"}
   end
 
 end
