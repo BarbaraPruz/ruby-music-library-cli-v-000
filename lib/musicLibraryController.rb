@@ -41,7 +41,7 @@ class MusicLibraryController
   end
 
   def list_songs
-    list_with_index (@sorted_songs) do | count, song |
+    @sorted_songs.each_with_index | count, song |
       puts "#{count}. #{song.artist.name} - #{song.name} - #{song.genre.name}"
     end
   end
@@ -61,7 +61,7 @@ class MusicLibraryController
     list = Song.all.select { | song | song.artist.name == artist_name }
     list.sort!{ | a, b | a.name <=> b.name }
 
-    list_with_index (list) { | count, song | puts "#{count}. #{song.name} - #{song.genre.name}"}
+    list.each_with_index { | count, song | puts "#{count}. #{song.name} - #{song.genre.name}"}
   end
 
   def list_songs_by_genre
@@ -71,7 +71,7 @@ class MusicLibraryController
     list = Song.all.select { | song | song.genre.name == genre_name }
     list.sort!{ | a, b | a.name <=> b.name }
 
-    list_with_index (list) { | count, song | puts "#{count}. #{song.artist.name} - #{song.name}"}
+    list.each_with_index { | count, song | puts "#{count}. #{song.artist.name} - #{song.name}"}
   end
 
   def play_song
@@ -84,18 +84,10 @@ class MusicLibraryController
   end
 
   private
-  def list_with_index (array)
-    count = 1
-    array.each do | item |
-      # would like to print the count here but then test fails!
-      yield(count,item)
-      count += 1
-    end
-  end
 
   def list_by_name (all)
     list = all.collect { |item| item.name }
-    list_with_index (list.sort!)  {|count, name| puts "#{count}. #{name}"}
+    list.each_with_index {|count, name| puts "#{count}. #{name}"}
   end
 
 end
