@@ -87,6 +87,7 @@ class MusicLibraryController
 
   def list_by_name (all)
     list = all.collect { |item| item.name }
+    binding.pry
     list.each_with_index {|name, count| puts "#{count+1}. #{name}"}
   end
 
